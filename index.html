@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二瓶 琉 — 自己紹介</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --text: #2a2a2a;
+    --accent: #1f3a5f;
+    --muted: #8a8a8a;
+    --border: #e2e2dd;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+                 "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    padding: 2.5rem 1.25rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  h1 .reading {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    letter-spacing: 0.15em;
+    font-weight: normal;
+  }
+  section {
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--accent);
+    letter-spacing: 0.05em;
+  }
+  ul {
+    list-style: none;
+  }
+  .likes li {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    margin: 0.25rem 0.3rem 0.25rem 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.92rem;
+  }
+  .apps li {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .apps li:last-child { border-bottom: none; }
+  .apps .name {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+  }
+  .apps .desc {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    line-height: 1.6;
+  }
+  .message {
+    text-align: center;
+    font-size: 1rem;
+    padding: 2rem 1.25rem;
+    background: var(--card);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    line-height: 2;
+  }
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    body { padding: 1.75rem 1rem; }
+    h1 { font-size: 1.65rem; }
+    h2 { font-size: 1rem; }
+    .message { padding: 1.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>
+        二瓶 琉
+        <span class="reading">にへい りゅう</span>
+      </h1>
+    </header>
+
+    <section>
+      <h2>好きなもの</h2>
+      <ul class="likes">
+        <li>ヰ世界情緒</li>
+        <li>メメントモリ</li>
+        <li>エースコンバット</li>
+        <li>絵を描くこと</li>
+        <li>ネモフィラ</li>
+        <li>モンスターエナジー</li>
+        <li>ほうじ茶ラテ</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>作ったアプリ</h2>
+      <ul class="apps">
+        <li>
+          <span class="name">Imagistra</span>
+          <span class="desc">手描きのラフから、自分の絵のためのリファレンス画像を生成するツール</span>
+        </li>
+        <li>
+          <span class="name">Dulcidos</span>
+          <span class="desc">対話型の小説作成補助アプリ</span>
+        </li>
+        <li>
+          <span class="name">Silvapuella</span>
+          <span class="desc">散歩で出会った花を記録するアプリ</span>
+        </li>
+        <li>
+          <span class="name">Lucidendra</span>
+          <span class="desc">中心放射型マインドマップ × ノード単位対話</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>作成中のアプリ</h2>
+      <ul class="apps">
+        <li>
+          <span class="name">Codiservella</span>
+          <span class="desc">簿記学習ツール</span>
+        </li>
+        <li>
+          <span class="name">Fenria</span>
+          <span class="desc">基本情報技術者試験 学習ツール</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>一言</h2>
+      <p class="message">
+        心臓に従って選び取る。<br>
+        選択肢はきっと、間違いじゃない。
+      </p>
+    </section>
+
+    <footer>
+      &copy; 2026 Ryu Nihei
+    </footer>
+
+  </div>
+</body>
+</html>
