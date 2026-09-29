@@ -5,196 +5,769 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>二瓶 琉 — 自己紹介</title>
 <style>
+  @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
   :root {
-    --bg: #f7f7f5;
-    --text: #2a2a2a;
-    --accent: #1f3a5f;
-    --muted: #8a8a8a;
-    --border: #e2e2dd;
-    --card: #ffffff;
+    --bg: #0d1220; --bg2: #141b2e; --card: #182036;
+    --text: #e8ebf3; --muted: #9aa4bd; --line: #2a3553;
+    --gold: #e0b567; --teal: #4cc3d9; --violet: #9b8cff;
+    --mx: 50%; --my: 30%;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
-                 "Yu Gothic", "Meiryo", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.75;
-    padding: 2.5rem 1.25rem;
-    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.75;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
-  .container {
-    max-width: 640px;
-    margin: 0 auto;
+  /* マウスのまわりがほのかに明るい */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(420px circle at var(--mx) var(--my), rgba(76,195,217,.07), transparent 70%);
   }
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
+  a { color: inherit; }
+  header, main, footer, .marquee { position: relative; z-index: 1; }
+
+  /* ---------- ヒーロー ---------- */
+  .hero {
+    position: relative; overflow: hidden; text-align: center;
+    padding: 5.5rem 1.25rem 4rem;
+    background: linear-gradient(180deg, #111a33 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--line);
   }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 80%);
+    animation: gridmove 8s linear infinite;
+  }
+  @keyframes gridmove { to { background-position: 36px 36px, 36px 36px; } }
+  .hero > * { position: relative; }
+  #dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; pointer-events: none; }
+  .blob.b1 { width: 340px; height: 340px; background: rgba(76,195,217,.45); top: -80px; left: 8%; animation: drift1 16s ease-in-out infinite alternate; }
+  .blob.b2 { width: 300px; height: 300px; background: rgba(155,140,255,.45); top: 10px; right: 6%; animation: drift2 19s ease-in-out infinite alternate; }
+  .blob.b3 { width: 380px; height: 260px; background: rgba(224,181,103,.30); bottom: -140px; left: 35%; animation: drift3 22s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(90px, 60px) scale(1.15); } }
+  @keyframes drift2 { to { transform: translate(-110px, 50px) scale(.9); } }
+  @keyframes drift3 { to { transform: translate(-80px, -40px) scale(1.2); } }
+  /* ゆっくり回る光の輪 */
+  .ring {
+    position: absolute; left: 50%; top: 46%; width: 460px; height: 460px; margin: -230px 0 0 -230px;
+    border-radius: 50%; pointer-events: none;
+    background: conic-gradient(from var(--a), transparent 0 60%, rgba(76,195,217,.35) 75%, rgba(155,140,255,.35) 85%, transparent 95%);
+    -webkit-mask: radial-gradient(circle, transparent 64%, #000 65%, #000 66%, transparent 67%);
+            mask: radial-gradient(circle, transparent 64%, #000 65%, #000 66%, transparent 67%);
+    animation: spin 14s linear infinite;
+  }
+  @keyframes spin { to { --a: 360deg; } }
+
+  .badge {
+    display: inline-block; font-size: .78rem; letter-spacing: .2em; color: var(--teal);
+    border: 1px solid rgba(76,195,217,.45); border-radius: 999px; padding: .25rem .9rem; margin-bottom: 1.4rem;
+    animation: glow 3.2s ease-in-out infinite;
+  }
+  @keyframes glow { 0%,100% { box-shadow: 0 0 0 rgba(76,195,217,0); } 50% { box-shadow: 0 0 18px rgba(76,195,217,.45); } }
   h1 {
-    font-size: 2rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.08em;
+    font-size: clamp(2.2rem, 7vw, 3.2rem); font-weight: 600; letter-spacing: .12em;
+    background: linear-gradient(90deg, #fff 0%, #cfe9ff 30%, var(--gold) 55%, #cfe9ff 80%, #fff 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 7s ease-in-out infinite alternate, hover 6s ease-in-out infinite;
+    cursor: default; user-select: none;
   }
-  h1 .reading {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-    letter-spacing: 0.15em;
-    font-weight: normal;
+  @keyframes shimmer { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  @keyframes hover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .reading { margin-top: .4rem; font-size: .9rem; letter-spacing: .3em; color: var(--muted); }
+  .tagline { margin: 1.4rem auto 0; font-size: 1rem; color: #c9d1e4; min-height: 1.75em; }
+  .tagline .caret { display: inline-block; width: 2px; height: 1em; background: var(--teal); vertical-align: -2px; margin-left: 2px; animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+
+  .stats { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .stat {
+    min-width: 7.2rem; padding: .7rem 1rem; border-radius: 14px;
+    background: rgba(255,255,255,.04); border: 1px solid var(--line);
   }
-  section {
-    margin-bottom: 2.5rem;
+  .stat b { display: block; font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; color: #fff; }
+  .stat span { font-size: .78rem; color: var(--muted); }
+  .jump { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-top: 1.6rem; }
+  .jump a {
+    text-decoration: none; font-size: .9rem; padding: .5rem 1.1rem; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line); transition: background .2s, border-color .2s;
   }
-  h2 {
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    padding-left: 0.85rem;
-    border-left: 3px solid var(--accent);
-    letter-spacing: 0.05em;
+  .jump a:hover { background: rgba(255,255,255,.12); border-color: var(--teal); }
+
+  /* ---------- 流れる帯 ---------- */
+  .marquee { overflow: hidden; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.02); }
+  .marquee .track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  .marquee span { padding: .7rem 1.4rem; font-size: .82rem; letter-spacing: .12em; color: var(--muted); white-space: nowrap; }
+  .marquee span::before { content: "◆"; color: var(--gold); margin-right: 1.4rem; font-size: .6rem; vertical-align: 2px; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ---------- 共通 ---------- */
+  main { max-width: 1080px; margin: 0 auto; padding: 3.5rem 1.25rem 4rem; }
+  section { margin-bottom: 4rem; }
+  h2 { display: flex; align-items: center; gap: .7rem; font-size: 1.25rem; font-weight: 600; letter-spacing: .08em; margin-bottom: 1.6rem; }
+  h2 .no { font-size: .8rem; color: var(--gold); letter-spacing: .15em; }
+  h2::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--line) 0%, rgba(76,195,217,.8) 50%, var(--line) 100%);
+    background-size: 300% 100%; animation: flow 5s linear infinite;
   }
-  ul {
-    list-style: none;
+  @keyframes flow { from { background-position: 100% 0; } to { background-position: -200% 0; } }
+
+  /* ---------- 作品カード ---------- */
+  .works { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.4rem; align-items: start; }
+  .work {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
   }
-  .likes li {
-    display: inline-block;
-    padding: 0.35rem 0.85rem;
-    margin: 0.25rem 0.3rem 0.25rem 0;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.92rem;
+  .work:nth-child(3n+1) { --d: 0s; } .work:nth-child(3n+2) { --d: -2.3s; } .work:nth-child(3n) { --d: -4.6s; }
+  /* 縁を光がぐるっと回る */
+  .work::before {
+    content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 1px; pointer-events: none; z-index: 3;
+    background: conic-gradient(from var(--a), transparent 0 72%, rgba(76,195,217,.9) 82%, rgba(155,140,255,.9) 90%, transparent 97%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: spin 7s linear infinite; animation-delay: var(--d);
   }
-  .apps li {
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--border);
+  .work:hover { box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+  .work.off, .work.off *, .work.off::before, .work.off *::before, .work.off *::after { animation-play-state: paused !important; }
+  /* スクロールで下から浮かび上がる */
+  .js .work.reveal { opacity: 0; transform: translateY(28px); }
+  .js .work.reveal.in { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s ease; }
+
+  .thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: linear-gradient(135deg, #1b2644, #101729); border-bottom: 1px solid var(--line); }
+  .thumb img.wide { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transform-origin: 50% 0%; animation: kenburns 16s ease-in-out infinite alternate; animation-delay: var(--d); }
+  @keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.12) translateY(-3%); } }
+  .thumb.phone { display: flex; justify-content: center; align-items: flex-start; padding-top: 1.1rem; }
+  .thumb.phone img { width: 42%; border-radius: 14px 14px 0 0; border: 3px solid #2f3a5a; border-bottom: none; box-shadow: 0 0 40px rgba(76,195,217,.25); animation: phonescroll 11s ease-in-out infinite alternate; animation-delay: var(--d); }
+  @keyframes phonescroll { 0%,12% { transform: translateY(0); } 88%,100% { transform: translateY(-42%); } }
+  .thumb.icon { display: grid; place-items: center; font-size: 3.4rem; }
+  .thumb.icon.c1 { background: radial-gradient(circle at 30% 30%, rgba(76,195,217,.35), transparent 60%), linear-gradient(135deg, #16233f, #0f1628); }
+  .thumb.icon.c2 { background: radial-gradient(circle at 70% 30%, rgba(155,140,255,.35), transparent 60%), linear-gradient(135deg, #1d1d42, #10122a); }
+  .thumb.icon.c3 { background: radial-gradient(circle at 50% 70%, rgba(224,181,103,.32), transparent 60%), linear-gradient(135deg, #2a2233, #14111d); }
+  .work .thumb.icon { background-size: 160% 160%, 100% 100%; animation: bgpan 12s ease-in-out infinite alternate; animation-delay: var(--d); }
+  @keyframes bgpan { from { background-position: 0% 0%, 0 0; } to { background-position: 100% 100%, 0 0; } }
+  .thumb.icon .emo { display: inline-block; animation: float 4.5s ease-in-out infinite; animation-delay: var(--d); filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
+  .thumb::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.10), transparent); transform: skewX(-18deg);
+    animation: shine 7s ease-in-out infinite; animation-delay: var(--d);
   }
-  .apps li:last-child { border-bottom: none; }
-  .apps .name {
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 1rem;
+  @keyframes shine { 0%,70% { left: -60%; } 100% { left: 130%; } }
+  .status { position: absolute; top: .7rem; left: .7rem; z-index: 2; font-size: .72rem; font-weight: 600; letter-spacing: .05em; padding: .18rem .6rem; border-radius: 999px; background: rgba(13,18,32,.85); border: 1px solid var(--line); }
+  .status.live { color: var(--teal); border-color: rgba(76,195,217,.6); }
+  .status.live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); margin-right: .4rem; vertical-align: 1px; animation: ping 1.8s ease-out infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(76,195,217,.7); } 100% { box-shadow: 0 0 0 8px rgba(76,195,217,0); } }
+  .status.wip { color: var(--gold); border-color: rgba(224,181,103,.6); animation: blink 2.6s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .55; } }
+
+  .body { padding: 1.1rem 1.2rem 1.25rem; display: flex; flex-direction: column; flex: 1; }
+  .name { font-size: 1.1rem; font-weight: 600; letter-spacing: .03em; }
+  .kind { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+  .desc { font-size: .92rem; color: #c6cde0; margin-top: .6rem; }
+  .point { margin-top: .8rem; font-size: .82rem; color: var(--gold); }
+  .point::before { content: "◆ "; }
+  .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .9rem; }
+  .tags span { font-size: .72rem; padding: .12rem .55rem; border-radius: 6px; background: rgba(255,255,255,.06); border: 1px solid var(--line); color: var(--muted); }
+  .go { align-self: flex-start; margin-top: 1rem; font-size: .85rem; text-decoration: none; color: var(--teal); border-bottom: 1px solid rgba(76,195,217,.5); }
+  .go:hover { color: #fff; border-color: #fff; }
+
+  /* ---------- 設計と制作のはなし ---------- */
+  details.note { margin-top: 1rem; border-top: 1px dashed var(--line); padding-top: .8rem; }
+  details.note summary {
+    list-style: none; cursor: pointer; font-size: .84rem; color: var(--violet);
+    display: flex; align-items: center; gap: .45rem; user-select: none;
   }
-  .apps .desc {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-top: 0.3rem;
-    line-height: 1.6;
+  details.note summary::-webkit-details-marker { display: none; }
+  details.note summary::before { content: "✎"; }
+  details.note summary::after { content: "▾"; margin-left: auto; transition: transform .25s; }
+  details.note[open] summary::after { transform: rotate(180deg); }
+  details.note summary:hover { color: #fff; }
+  details.note ul { list-style: none; margin-top: .7rem; display: grid; gap: .55rem; }
+  details.note li { position: relative; padding-left: 1rem; font-size: .84rem; color: #c3cadb; line-height: 1.7; }
+  details.note li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--violet); }
+  details.note li q { color: var(--gold); quotes: "「" "」"; }
+  details.note[open] ul { animation: open .35s ease; }
+  @keyframes open { from { opacity: 0; transform: translateY(-6px); } }
+
+  /* ---------- 好きなもの ---------- */
+  .likes { display: flex; flex-wrap: wrap; gap: .6rem; list-style: none; }
+  .likes li { padding: .45rem 1rem; border-radius: 999px; font-size: .92rem; background: var(--card); border: 1px solid var(--line); animation: bob 5s ease-in-out infinite; user-select: none; }
+  .likes li:nth-child(3n+1) { border-color: rgba(76,195,217,.55); }
+  .likes li:nth-child(3n+2) { border-color: rgba(155,140,255,.55); }
+  .likes li:nth-child(3n)   { border-color: rgba(224,181,103,.55); }
+  .likes li:nth-child(2) { animation-delay: -.7s; } .likes li:nth-child(3) { animation-delay: -1.4s; }
+  .likes li:nth-child(4) { animation-delay: -2.1s; } .likes li:nth-child(5) { animation-delay: -2.8s; }
+  .likes li:nth-child(6) { animation-delay: -3.5s; } .likes li:nth-child(7) { animation-delay: -4.2s; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  .quote {
+    text-align: center; padding: 2.6rem 1.25rem; border-radius: 18px; border: 1px solid var(--line);
+    font-size: 1.15rem; letter-spacing: .08em; line-height: 2.1;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(155,140,255,.22), transparent 70%), linear-gradient(120deg, #141b2e, #1b2240, #13233a, #141b2e);
+    background-size: 100% 100%, 300% 300%; animation: aurora 14s ease-in-out infinite alternate;
   }
-  .apps .desc .present-link {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    margin-left: 0.4rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    padding-bottom: 1px;
+  @keyframes aurora { from { background-position: 0 0, 0% 50%; } to { background-position: 0 0, 100% 50%; } }
+
+  footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 2rem 1rem 3rem; border-top: 1px solid var(--line); }
+  footer .asof { display: block; margin-bottom: .5rem; font-size: .74rem; }
+  footer .hint { display: block; margin-top: .6rem; font-size: .7rem; letter-spacing: .3em; color: rgba(154,164,189,.18); }
+
+  /* ---------- 動きを止めるボタン ---------- */
+  .motion {
+    position: fixed; right: 14px; bottom: 14px; z-index: 40;
+    font: inherit; font-size: .78rem; color: var(--muted); cursor: pointer;
+    padding: .4rem .8rem; border-radius: 999px; background: rgba(20,27,46,.9); border: 1px solid var(--line);
   }
-  .apps .desc .present-link:hover {
-    color: #2c5f2d;
-    border-color: #2c5f2d;
+  .motion:hover { color: #fff; border-color: var(--teal); }
+  .still *, .still *::before, .still *::after, .still::before { animation-play-state: paused !important; }
+
+  /* ---------- 隠しもの ---------- */
+  .petal { position: fixed; top: -40px; z-index: 50; pointer-events: none; font-size: 22px; animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(540deg); opacity: .2; } }
+  .toast {
+    position: fixed; left: 50%; bottom: 2rem; z-index: 60; transform: translateX(-50%) translateY(20px); opacity: 0;
+    padding: .7rem 1.3rem; border-radius: 999px; font-size: .9rem; pointer-events: none;
+    background: rgba(20,27,46,.95); border: 1px solid var(--teal); box-shadow: 0 0 24px rgba(76,195,217,.35);
+    transition: opacity .4s, transform .4s;
   }
-  .message {
-    text-align: center;
-    font-size: 1rem;
-    padding: 2rem 1.25rem;
-    background: var(--card);
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    line-height: 2;
-  }
-  footer {
-    text-align: center;
-    margin-top: 3rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .burst { position: fixed; z-index: 55; pointer-events: none; font-size: 26px; animation: burst 1.2s ease-out forwards; }
+  @keyframes burst { to { transform: translate(var(--bx), var(--by)) rotate(var(--br)) scale(.6); opacity: 0; } }
+
+  @media print { .js .work.reveal { opacity: 1 !important; transform: none !important; } .blob, .ring, #dust, .marquee, .motion { display: none !important; } }
   @media (max-width: 480px) {
-    body { padding: 1.75rem 1rem; }
-    h1 { font-size: 1.65rem; }
-    h2 { font-size: 1rem; }
-    .message { padding: 1.5rem 1rem; }
+    .hero { padding: 4rem 1rem 3.2rem; }
+    .ring { width: 320px; height: 320px; margin: -160px 0 0 -160px; }
+    main { padding: 2.5rem 1rem 3rem; }
+    .works { grid-template-columns: 1fr; }
+    .stat { min-width: 6rem; }
   }
 </style>
 </head>
 <body>
-  <div class="container">
 
-    <header>
-      <h1>
-        二瓶 琉
-        <span class="reading">にへい りゅう</span>
-      </h1>
-    </header>
-
-    <section>
-      <h2>好きなもの</h2>
-      <ul class="likes">
-        <li>ヰ世界情緒</li>
-        <li>メメントモリ</li>
-        <li>エースコンバット</li>
-        <li>絵を描くこと</li>
-        <li>ネモフィラ</li>
-        <li>モンスターエナジー</li>
-        <li>ほうじ茶ラテ</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>作ったアプリ</h2>
-      <ul class="apps">
-        <li>
-          <span class="name">Imagistra</span>
-          <span class="desc">手描きのラフから、自分の絵のためのリファレンス画像を生成するツール</span>
-        </li>
-        <li>
-          <span class="name">Dulcidos</span>
-          <span class="desc">対話型の小説作成補助アプリ</span>
-        </li>
-        <li>
-          <span class="name">Silvapuella</span>
-          <span class="desc">散歩で出会った花を記録するアプリ<a href="silvapuella/" class="present-link">→ 発表を見る</a></span>
-        </li>
-        <li>
-          <span class="name">Lucidendra</span>
-          <span class="desc">中心放射型マインドマップ × ノード単位対話</span>
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>作成中のアプリ</h2>
-      <ul class="apps">
-        <li>
-          <span class="name">Codiservella</span>
-          <span class="desc">簿記学習ツール</span>
-        </li>
-        <li>
-          <span class="name">Fenria</span>
-          <span class="desc">基本情報技術者試験 学習ツール</span>
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>一言</h2>
-      <p class="message">
-        心臓に従って選び取る。<br>
-        選択肢はきっと、間違いじゃない。
-      </p>
-    </section>
-
-    <footer>
-      &copy; 2026 Ryu Nihei
-    </footer>
-
+<header class="hero">
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="ring" aria-hidden="true"></div>
+  <div class="badge">PORTFOLIO</div>
+  <h1 id="name">二瓶 琉</h1>
+  <div class="reading">にへい りゅう</div>
+  <p class="tagline"><span id="typed"></span><span class="caret"></span></p>
+  <div class="stats">
+    <div class="stat"><b data-count="web">0</b><span>公開中のサイト</span></div>
+    <div class="stat"><b data-count="apps">0</b><span>アプリ・ツール</span></div>
+    <div class="stat"><b data-count="wip">0</b><span>作成中</span></div>
   </div>
+  <nav class="jump">
+    <a href="#web">公開中のサイト</a>
+    <a href="#apps">アプリ・ツール</a>
+    <a href="#wip">作成中</a>
+    <a href="#likes">好きなもの</a>
+  </nav>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>HTML / CSS / JavaScript</span><span>Android（Capacitor）</span><span>Firebase</span><span>Google Apps Script</span><span>PowerShell / WPF</span><span>Node.js</span><span>Vercel</span><span>AI API</span><span>出典の照合</span><span>テストを書いてから直す</span><span>使う人の声で改修</span>
+  <span>HTML / CSS / JavaScript</span><span>Android（Capacitor）</span><span>Firebase</span><span>Google Apps Script</span><span>PowerShell / WPF</span><span>Node.js</span><span>Vercel</span><span>AI API</span><span>出典の照合</span><span>テストを書いてから直す</span><span>使う人の声で改修</span>
+</div></div>
+
+<main>
+
+  <!-- ===================== 公開中のサイト ===================== -->
+  <section id="web">
+    <h2><span class="no">01</span>公開中のサイト</h2>
+    <div class="works" data-group="web">
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/mememori.jpg" loading="lazy" decoding="async" alt="メメントモリ 魔女診断の画面"></div>
+        <div class="body">
+          <div class="name">メメントモリ 魔女診断</div>
+          <div class="kind">Web（非公式ファン作品）</div>
+          <p class="desc">10問または30問に答えると、ゲーム「メメントモリ」の魔女109人から性格が一番近い魔女がわかる診断。全員の性格を10軸のレーダーで見比べられる図鑑つき。</p>
+          <p class="point">109人 × 10軸で性格を数値化</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>答えを10軸の性格の値に足していき、109人の中で一番「距離」が近い魔女を返す仕組み。</li>
+            <li>キャラの性格は、公開されている情報を2つ以上の出典で照合してから数値にした。</li>
+            <li>10問版の答え方の全パターン（約105万通り）を総当たりして、どの魔女にもたどり着けるかを確かめた。</li>
+            <li><q>最初から設問が見えてるのが違和感</q><q>レーダーだけだと何が何だか</q>——自分で使って引っかかったところを直しながら、版を重ねた。</li>
+          </ul></details>
+          <a class="go" href="https://mememorishindan.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/aishou.jpg" loading="lazy" decoding="async" alt="メメントモリ 相性診断の画面"></div>
+        <div class="body">
+          <div class="name">メメントモリ 相性診断</div>
+          <div class="kind">Web（非公式ファン作品）</div>
+          <p class="desc">性格の問いに答えると、魔女のうち相性のいい子が、どこが噛み合うかの理由つきでわかる。魔女診断の姉妹サイト。</p>
+          <p class="point">相性の点数は研究の知見から組んだ</p>
+          <div class="tags"><span>HTML</span><span>JavaScript</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li><q>独断でなく、学術的なエビデンスを</q>——相性の点数は、思いつきで決めずに研究を調べてから組んだ。</li>
+            <li>研究では、「性格が似ているほどうまくいく」は相性の満足度をほとんど左右しなかった。だから、似ているかどうかより、お互いの性格の土台の強さを重く見ている。</li>
+            <li>「正反対が惹かれ合う」は裏づけが弱いので、点数に入れなかった。</li>
+          </ul></details>
+          <a class="go" href="https://mememoriaishou.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/roulette.jpg" loading="lazy" decoding="async" alt="メメントモリ お題ルーレットの画面"></div>
+        <div class="body">
+          <div class="name">メメントモリ お題ルーレット</div>
+          <div class="kind">Web（非公式ファン作品）</div>
+          <p class="desc">キャラ・シチュ・服・ポーズ・表情などを回して、絵のお題を決めるルーレット。気に入った目は固定して、残りだけ回し直せる。</p>
+          <p class="point">枠も出目も自由に編集できる</p>
+          <div class="tags"><span>HTML</span><span>JavaScript</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>キャラの名前は複数の資料で照合してから載せた。</li>
+            <li>属性での絞り込みは、資料どうしで食い違いがあったので入れなかった。確かでないデータは載せない。</li>
+            <li>結果は画像つきのカードでそのまま共有できる。</li>
+          </ul></details>
+          <a class="go" href="https://mememoriodairoulette.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/kousatsu.jpg" loading="lazy" decoding="async" alt="独りぼっちの神（メメントモリ考察）の画面"></div>
+        <div class="body">
+          <div class="name">独りぼっちの神</div>
+          <div class="kind">Web（メメントモリの考察）</div>
+          <p class="desc">メメントモリの物語に「神」が一度も姿を見せないことから組み立てた考察記事。</p>
+          <p class="point">英語版wikiの100件以上のページを洗い出した</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>英語版wikiで「God」を含むページを100件以上洗い出し、神が人格として登場する場面が無いことを確かめてから書いた。</li>
+            <li>実際のセリフの引用と、筆者の解釈は見た目を分けた。切り抜かれても、解釈がセリフと混ざらないように。</li>
+            <li>運営中のゲームなので、「いつ時点の情報か」を先頭に書いた。</li>
+          </ul></details>
+          <a class="go" href="https://mememorikousatsu.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/tabako.jpg" loading="lazy" decoding="async" alt="たばこ診断の画像"></div>
+        <div class="body">
+          <div class="name">たばこ診断</div>
+          <div class="kind">Web（たばこの銘柄診断）</div>
+          <p class="desc">もし吸うなら、どの一本？ コンビニで買える紙巻き・加熱式から、答えに合う一本を当てる診断。吸わない人も「もしも」で遊べる。</p>
+          <p class="point">271銘柄を収録、全銘柄に出典つき</p>
+          <div class="tags"><span>HTML</span><span>JavaScript</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>最初に決めたのは「喫煙をすすめない」こと。吸わない人向けに、日常の感覚だけで答えるIF診断を用意した。</li>
+            <li>年齢の確認に加えて、結果カードや図鑑にも注意書きを重ねて入れた。</li>
+            <li>銘柄のデータは手で書かず、集める・確かめる・監査するの手順を通して作った。</li>
+          </ul></details>
+          <a class="go" href="https://tabako-shindan.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/career.jpg" loading="lazy" decoding="async" alt="向いている仕事のカタチ診断の画面"></div>
+        <div class="body">
+          <div class="name">向いている仕事のカタチ診断</div>
+          <div class="kind">Web</div>
+          <p class="desc">12問で、力を発揮しやすい働き方の条件と、理由つきの職種候補TOP3がわかる診断。</p>
+          <p class="point">職業を1つに決めつけず、条件から探す</p>
+          <div class="tags"><span>HTML</span><span>JavaScript</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>6つの軸（集中と連携、安定と変化、手順と探索 など）で、働きやすい条件を出す。</li>
+            <li>「質問が、もう働いている前提になっている」と気づいて、「働くとしたら」の聞き方に直した。</li>
+            <li>「答えにくい」「やさしく」を受けて、選択肢の言葉を何度も書き直した。</li>
+          </ul></details>
+          <a class="go" href="https://careershapefinder.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/watagashi.jpg" loading="lazy" decoding="async" alt="わたがしの画面"></div>
+        <div class="body">
+          <div class="name">わたがし</div>
+          <div class="kind">Web（創作の世界観）</div>
+          <p class="desc">名を持たぬ十の少女と、燃え残った一つの問い。自作の世界を、読みものと構造図のページにまとめた。</p>
+          <p class="point">読みもの12篇・構造図8章</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>公開の前に、内輪の情報が混ざっていないかを点検してから出した。</li>
+            <li>物語の本文にある言葉まで消さないよう、1件ずつ前後の文脈を見て判断した。</li>
+            <li>夜と昼の配色を切り替えられる。</li>
+          </ul></details>
+          <a class="go" href="https://watagashi.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><span class="status live">公開中</span><img class="wide" src="images/portal.jpg" loading="lazy" decoding="async" alt="むばぃん 創作ポータルの画面"></div>
+        <div class="body">
+          <div class="name">むばぃん 創作ポータル</div>
+          <div class="kind">Web（創作活動の玄関）</div>
+          <p class="desc">創作名義「むばぃん」の玄関。作品へのリンクと、手描きイラストのギャラリー。</p>
+          <p class="point">専用の管理画面から、並べ替えと公開まで行える</p>
+          <div class="tags"><span>HTML</span><span>JavaScript</span><span>Node.js</span><span>Vercel</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>絵を追加・削除・並べ替えするための管理画面を別に作り、ボタン一つで公開まで進められるようにした。</li>
+            <li>アクセス解析は、Cookieを使わない方式を選んだ。</li>
+          </ul></details>
+          <a class="go" href="https://orphelikaportal.vercel.app/" target="_blank" rel="noopener">サイトを開く →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== アプリ・ツール ===================== -->
+  <section id="apps">
+    <h2><span class="no">02</span>アプリ・ツール</h2>
+    <div class="works" data-group="apps">
+
+      <article class="work reveal">
+        <div class="thumb phone"><img src="images/laptimer.jpg" loading="lazy" decoding="async" alt="ラップタイマーの画面"></div>
+        <div class="body">
+          <div class="name">ラップタイマー</div>
+          <div class="kind">Android アプリ</div>
+          <p class="desc">サーキットで、1台の端末から複数台のラップをまとめて計るアプリ。全車一斉スタートと、1台ずつ計るモードの2つ。</p>
+          <p class="point">実際に使う人の声を受けて、改修を重ねた</p>
+          <div class="tags"><span>Android</span><span>Capacitor</span><span>JavaScript</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>実際のレースで使ってもらい、届いた要望から版を重ねた。1台分だけの記録を送る、ゴール、並べ替え、赤旗で全車ピット……。</li>
+            <li>現場で誤って押しても困らないように、ごく短い連打を無視するなどの仕組みを入れた。</li>
+            <li>計測の計算は、偽の時計を使ったテストと、実際の時計の両方で確かめた。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c1"><span class="emo">📍</span></div>
+        <div class="body">
+          <div class="name">GPSロガー</div>
+          <div class="kind">Android アプリ</div>
+          <p class="desc">GPSで走行を記録し、コースのラインを通るたびにラップを刻む。複数の端末の現在位置を、地図でリアルタイムに共有できる。</p>
+          <p class="point">ラップタイマーから発展させた</p>
+          <div class="tags"><span>Android</span><span>Capacitor</span><span>Firebase</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>「どの車が通ったか」を見分けるために、カメラ・コース側のセンサー・GPSなどの方式を比べてから、GPSを選んだ。</li>
+            <li>まずスマホのGPSで、実際の更新の速さと精度を測るところから始めた。</li>
+            <li>加速度も記録して、速度のグラフなどで走りを振り返れる。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb phone"><img src="images/rikugi.jpg" loading="lazy" decoding="async" alt="一陸技 学習アプリの画面"></div>
+        <div class="body">
+          <div class="name">一陸技 学習アプリ</div>
+          <div class="kind">Android アプリ</div>
+          <p class="desc">第一級陸上無線技術士の試験勉強用。科目別の演習・間違えた問題の復習・記録ができる。</p>
+          <p class="point">過去問190問を収録</p>
+          <div class="tags"><span>Android</span><span>Capacitor</span><span>JavaScript</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>問題は公式の過去問PDFから書き写してデータにした。記憶に頼って作らない。</li>
+            <li>間違えた問題は、間隔をあけて何度か出てくる（最短で当日、最長で14日後）。</li>
+            <li>計算問題には、ステップごとの解説をつけた。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb"><img class="wide" src="images/silvapuella.jpg" loading="lazy" decoding="async" alt="Silvapuella の発表ページ"></div>
+        <div class="body">
+          <div class="name">Silvapuella</div>
+          <div class="kind">Android アプリ</div>
+          <p class="desc">散歩で出会った花を記録するアプリ</p>
+          <p class="point">成果物報告会で発表</p>
+          <div class="tags"><span>Android</span><span>Capacitor</span><span>AI API</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>花を撮ると、名前の候補を並べて教えてくれる。辞書と花壇管理が一体になっている。</li>
+            <li>発表のあとに会話の画面を足したとき、<q>入力口が2つは不要</q>と、写真も文字も一つの入口から送れるようにまとめた。</li>
+            <li>撮った場所を地図に残して、どこで出会った花かをあとから見返せる。</li>
+          </ul></details>
+          <a class="go" href="silvapuella/">発表を見る →</a>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c2"><span class="emo">📊</span></div>
+        <div class="body">
+          <div class="name">使用枠メーター</div>
+          <div class="kind">デスクトップ／スマホ</div>
+          <p class="desc">AIサービスの使用量を、画面の隅に常に表示しておくウィジェット。このままのペースだといつ上限に届くかも出す。</p>
+          <p class="point">公式と同じ数値を、3分おきに取得</p>
+          <div class="tags"><span>PowerShell</span><span>WPF</span><span>HTML</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>色だけで見分けなくていいように、色の段階に記号と線の種類を足した。</li>
+            <li>接続が切れたときに同じ要求を繰り返さないよう、間隔を空けて待つ仕組みを入れた。</li>
+            <li>作って動かしながら見つかった落とし穴は、次に踏まないように全部書き残した。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c3"><span class="emo">🎨</span></div>
+        <div class="body">
+          <div class="name">Imagistra</div>
+          <div class="kind">Web → Android アプリ</div>
+          <p class="desc">手描きのラフから、自分の絵のためのリファレンス画像を生成するツール</p>
+          <div class="tags"><span>Android</span><span>Capacitor</span><span>AI API</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>講座の課題でWeb版を作り、そのあとAndroidアプリにした。絵へのフィードバックをくれるコーチ機能つき。</li>
+            <li>コーチの性格を4種類から選べる（師匠・伴走・分析・仲間）。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c2"><span class="emo">📖</span></div>
+        <div class="body">
+          <div class="name">Dulcidos</div>
+          <div class="kind">Web アプリ</div>
+          <p class="desc">対話型の小説作成補助アプリ</p>
+          <div class="tags"><span>AI API</span></div>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c1"><span class="emo">🕸️</span></div>
+        <div class="body">
+          <div class="name">Lucidendra</div>
+          <div class="kind">Web アプリ</div>
+          <p class="desc">中心放射型マインドマップ × ノード単位対話</p>
+          <div class="tags"><span>AI API</span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== 作成中 ===================== -->
+  <section id="wip">
+    <h2><span class="no">03</span>作成中</h2>
+    <div class="works" data-group="wip">
+
+      <article class="work reveal">
+        <div class="thumb icon c3"><span class="status wip">作成中</span><span class="emo">🧾</span></div>
+        <div class="body">
+          <div class="name">請求書・領収書ツール</div>
+          <div class="kind">Google スプレッドシート ＋ GAS</div>
+          <p class="desc">スプレッドシートから請求書と領収書を作るツール。導入手順書と利用マニュアルもあわせて作っている。</p>
+          <p class="point">テストを書いて、壊れないことを確かめながら作る</p>
+          <div class="tags"><span>Google Apps Script</span><span>スプレッドシート</span></div>
+          <details class="note"><summary>設計と制作のはなし</summary><ul>
+            <li>止まったときに「何が違うか・どうすればいいか」が画面でわかる表示にしている。</li>
+            <li>直す前の版でも同じ壊し方を試して、テストがそれを見逃さないことを確かめてから直す。</li>
+            <li>完成と言う前に、全体を点検する見直しを何度も回している。</li>
+          </ul></details>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c1"><span class="status wip">作成中</span><span class="emo">📒</span></div>
+        <div class="body">
+          <div class="name">Codiservella</div>
+          <div class="kind">学習ツール</div>
+          <p class="desc">簿記学習ツール</p>
+        </div>
+      </article>
+
+      <article class="work reveal">
+        <div class="thumb icon c2"><span class="status wip">作成中</span><span class="emo">💻</span></div>
+        <div class="body">
+          <div class="name">Fenria</div>
+          <div class="kind">学習ツール</div>
+          <p class="desc">基本情報技術者試験 学習ツール</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="likes">
+    <h2><span class="no">04</span>好きなもの</h2>
+    <ul class="likes">
+      <li>ヰ世界情緒</li>
+      <li>メメントモリ</li>
+      <li>エースコンバット</li>
+      <li>絵を描くこと</li>
+      <li id="nemo">ネモフィラ</li>
+      <li id="monster">モンスターエナジー</li>
+      <li>ほうじ茶ラテ</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="quote">心臓に従って選び取る。<br>選択肢はきっと、間違いじゃない。</div>
+  </section>
+
+</main>
+
+<footer><span class="asof">✎ の中の「」は、作っていたときの自分の言葉。数字は 2026年9月時点。</span>&copy; 2026 Ryu Nihei<span class="hint">↑ ↑ ↓ ↓ ← → ← → B A</span></footer>
+
+<div class="toast" id="toast"></div>
+<button class="motion" id="motion" type="button" aria-pressed="false">❚❚ 動きを止める</button>
+
+<script>
+if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
+
+/* ---- 光の粒 ---- */
+(() => {
+  const c = document.getElementById('dust'); if (!c) return;
+  const ctx = c.getContext('2d'); if (!ctx) return; let w, h;
+  const resize = () => { const r = c.getBoundingClientRect(); w = c.width = r.width * devicePixelRatio; h = c.height = r.height * devicePixelRatio; };
+  const make = (y) => ({ x: Math.random() * w, y: (y === undefined ? Math.random() * h : y), r: (Math.random() * 1.6 + .4) * devicePixelRatio,
+    vy: (Math.random() * .25 + .08) * devicePixelRatio, vx: (Math.random() - .5) * .12 * devicePixelRatio, a: Math.random() * .6 + .2, t: Math.random() * 6.28 });
+  resize(); const dots = Array.from({ length: 70 }, () => make()); addEventListener('resize', resize);
+  let seen = true;
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { seen = es[0].isIntersecting; }).observe(c);
+  const tick = () => {
+    requestAnimationFrame(tick); if (!seen || window.__still) return;
+    ctx.clearRect(0, 0, w, h);
+    for (const d of dots) {
+      d.y -= d.vy; d.x += d.vx; d.t += .03; if (d.y < -5) Object.assign(d, make(h + 5));
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 6.283); ctx.fillStyle = `rgba(210,235,255,${d.a * (.6 + .4 * Math.sin(d.t))})`; ctx.fill();
+    }
+  };
+  tick();
+})();
+
+/* ---- 一行を打つように出す（打ったら消して、また打つ） ---- */
+(() => {
+  const el = document.getElementById('typed'); if (!el) return;
+  const lines = ['作ったものと、作っているもの。', 'Web・Android・デスクトップ・スプレッドシート。', '使う人の声を受けて、直していく。'];
+  let li = 0, ci = 0, del = false;
+  const step = () => {
+    const s = lines[li];
+    el.textContent = s.slice(0, ci);
+    if (!del && ci < s.length) { ci++; setTimeout(step, 90); }
+    else if (!del) { del = true; setTimeout(step, 4200); }
+    else if (ci > 0) { ci--; setTimeout(step, 35); }
+    else { del = false; li = (li + 1) % lines.length; setTimeout(step, 400); }
+  };
+  step();
+})();
+
+/* ---- 数を数え上げる（件数はカードの数から出す） ---- */
+(() => {
+  document.querySelectorAll('[data-count]').forEach(b => {
+    const n = document.querySelectorAll(`[data-group="${b.dataset.count}"] .work`).length;
+    const t0 = performance.now();
+    const run = (t) => { const p = Math.min(1, (t - t0) / 1400); b.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(run); };
+    requestAnimationFrame(run);
+    b.dataset.n = n;
+  });
+})();
+
+/* ---- スクロールで浮かび上がる ---- */
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.work.reveal').forEach(el => io.observe(el));
+  document.addEventListener('transitionend', e => { if (e.target.classList && e.target.classList.contains('in') && e.propertyName === 'opacity') e.target.classList.remove('reveal', 'in'); });
+})();
+
+/* ---- 画面の外にあるカードは動きを止める ---- */
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('off', !e.isIntersecting)), { rootMargin: '120px' });
+  document.querySelectorAll('.work').forEach(el => io.observe(el));
+})();
+
+/* ---- マウスの光とカードの傾き ---- */
+addEventListener('pointermove', e => {
+  document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+  document.documentElement.style.setProperty('--my', e.clientY + 'px');
+});
+document.querySelectorAll('.work').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    card.style.transform = `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-4px)`;
+  });
+  card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+});
+
+/* ---- 動きを止める／動かす ---- */
+(() => {
+  const b = document.getElementById('motion'); if (!b) return;
+  b.addEventListener('click', () => {
+    const still = document.documentElement.classList.toggle('still');
+    window.__still = still;
+    b.textContent = still ? '▶ 動かす' : '❚❚ 動きを止める';
+    b.setAttribute('aria-pressed', String(still));
+  });
+})();
+
+/* ================= 隠しもの ================= */
+const toast = (msg) => {
+  const t = document.getElementById('toast'); if (!t) return; t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('show'), 3200);
+};
+const bloom = (n = 60) => {
+  if (bloom.busy) return; bloom.busy = true; setTimeout(() => bloom.busy = false, 6000);
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement('div'); p.className = 'petal';
+    p.textContent = Math.random() < .8 ? '✿' : '❀';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.color = ['#7fb3ff', '#a9c8ff', '#5f93f0', '#ffffff'][i % 4];
+    p.style.fontSize = (14 + Math.random() * 18) + 'px';
+    p.style.animationDuration = (4 + Math.random() * 4) + 's';
+    p.style.animationDelay = (Math.random() * 1.5) + 's';
+    document.body.appendChild(p); setTimeout(() => p.remove(), 10000);
+  }
+};
+
+/* ① ↑↑↓↓←→←→BA でネモフィラが咲く */
+(() => {
+  const code = 'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a'; const keys = [];
+  addEventListener('keydown', e => {
+    if (['Shift','Control','Alt','Meta','CapsLock','Process'].includes(e.key)) return;
+    keys.push(e.key.length === 1 ? e.key.toLowerCase() : e.key); if (keys.length > 10) keys.shift();
+    if (keys.join(',') === code) { keys.length = 0; bloom(); toast('✿ 見つけましたね。ネモフィラが咲きました'); }
+  });
+})();
+
+/* ② 「ネモフィラ」を3回押しても咲く（スマホ用） */
+(() => {
+  let n = 0, h; const el = document.getElementById('nemo'); if (!el) return;
+  el.addEventListener('click', () => { n++; clearTimeout(h); h = setTimeout(() => n = 0, 1200); if (n >= 3) { n = 0; bloom(30); toast('✿ ネモフィラ'); } });
+})();
+
+/* ③ 「モンスターエナジー」を5回押すとチャージ */
+(() => {
+  let n = 0, h; const el = document.getElementById('monster'); if (!el) return;
+  el.addEventListener('click', (e) => {
+    n++; clearTimeout(h); h = setTimeout(() => n = 0, 1500);
+    if (n < 5) return; n = 0;
+    for (let i = 0; i < 18; i++) {
+      const b = document.createElement('div'); b.className = 'burst'; b.textContent = i % 3 ? '⚡' : '🥫';
+      b.style.left = e.clientX + 'px'; b.style.top = e.clientY + 'px';
+      const ang = Math.random() * 6.283, dist = 80 + Math.random() * 140;
+      b.style.setProperty('--bx', Math.cos(ang) * dist + 'px'); b.style.setProperty('--by', Math.sin(ang) * dist + 'px'); b.style.setProperty('--br', (Math.random() * 720 - 360) + 'deg');
+      document.body.appendChild(b); setTimeout(() => b.remove(), 1300);
+    }
+    toast('⚡ エネルギー充填完了');
+  });
+})();
+
+/* ④ 名前を7回押すと、読みがもうひとつ出る */
+(() => {
+  let n = 0, h; const el = document.getElementById('name'); const rd = document.querySelector('.reading'); if (!el || !rd) return; const orig = rd.textContent;
+  el.addEventListener('click', () => {
+    n++; clearTimeout(h); h = setTimeout(() => n = 0, 1500);
+    if (n < 7) return; n = 0;
+    rd.textContent = 'N I H E I  ·  R Y U'; toast('名前の読みを、もうひとつ'); setTimeout(() => rd.textContent = orig, 4000);
+  });
+})();
+
+/* ⑤ 開発者ツールを開いた人へ */
+console.log('%c二瓶 琉%c\nソースを見に来てくれたあなたへ。\nこのページには、隠しものがいくつかあります。\nひとつめのヒントは、ページのいちばん下。', 'font-size:22px;font-weight:bold;color:#4cc3d9', 'font-size:13px;color:#9aa4bd;line-height:1.8');
+</script>
 </body>
 </html>
